@@ -1,2 +1,0 @@
-export CCOMPILER=/home/jim/CodeSourcery/bin/arm-none-eabi-
-export | grep CCOMPILER
