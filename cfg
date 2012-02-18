@@ -1,0 +1,2 @@
+make ARCH=arm CROSS_COMPILE=$CCOMPILER oldconfig
+make ARCH=arm CROSS_COMPILE=$CCOMPILER menuconfig

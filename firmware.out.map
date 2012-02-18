@@ -1,0 +1,172 @@
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+                0x49000000                . = 0x49000000
+                0x49000000                . = ALIGN (0x4)
+
+.start          0x49000000      0x164
+ *rom_spl*.o(.text)
+ .text          0x49000000      0x164 /opt/uboot_mlogic/build/firmware/arm/aml_meson/m1/rom_spl.o
+                0x49000000                _start
+                0x490000a8                romboot_info
+                0x490000ac                magic_info
+                0x490000b0                ipl_memcpy
+                0x490000e8                wait
+                0x490000fc                _end_wait
+                0x490000fc                _end_rom_spl
+                0x490001b0                . = 0x490001b0
+
+.magic          0x490001b0       0x50
+ *magic.o(.text)
+ .text          0x490001b0       0x50 /opt/uboot_mlogic/build/firmware/arm/aml_meson/m1/magic.o
+                0x490001b0                __magic_word
+                0x49000200                __end_magic
+                0x49000200                . = 0x49000200
+                0x49000200                . = ALIGN (0x4)
+
+.setting        0x49000200       0x64
+ *(.setting)
+ .setting       0x49000200       0x64 /opt/uboot_mlogic/build/firmware/arm/aml_meson/m1/spl.o
+                0x49000264                . = ALIGN (0x4)
+
+.text           0x49000264     0x1384
+ *(.text)
+ .text          0x49000264     0x1384 /opt/uboot_mlogic/build/firmware/arm/aml_meson/m1/spl.o
+                0x49000374                clk_util_msr
+                0x490004f4                memcpy
+                0x4900050a                power_hold
+                0x490005c0                backlight_off
+                0x490005fc                crc32_no_comp
+                0x49000710                crc32
+                0x4900071c                crc32_wd
+                0x49000c3c                mem_debug
+                0x49000c74                do_exception
+                0x490011c4                lowlevel_init
+                0x49001388                relocate_init
+
+.glue_7         0x490015e8        0x0
+ .glue_7        0x00000000        0x0 linker stubs
+
+.glue_7t        0x490015e8        0x0
+ .glue_7t       0x00000000        0x0 linker stubs
+
+.vfp11_veneer   0x490015e8        0x0
+ .vfp11_veneer  0x00000000        0x0 linker stubs
+
+.v4_bx          0x490015e8        0x0
+ .v4_bx         0x00000000        0x0 linker stubs
+
+.rodata         0x490015e8       0x80
+ *(SORT(.rodata*))
+ .rodata        0x490015e8       0x1c /opt/uboot_mlogic/build/firmware/arm/aml_meson/m1/spl.o
+ .rodata.str1.1
+                0x49001604       0x64 /opt/uboot_mlogic/build/firmware/arm/aml_meson/m1/spl.o
+                                 0x66 (size before relaxing)
+
+.data           0x49001668        0x4
+ *(.data)
+ .data          0x49001668        0x0 /opt/uboot_mlogic/build/firmware/arm/aml_meson/m1/rom_spl.o
+ .data          0x49001668        0x0 /opt/uboot_mlogic/build/firmware/arm/aml_meson/m1/magic.o
+ .data          0x49001668        0x4 /opt/uboot_mlogic/build/firmware/arm/aml_meson/m1/spl.o
+                0x4900166c                _end = .
+                0x4900166c                . = ALIGN (0x4)
+                0x4900166c                _bssstart = .
+
+.bss            0x4900166c        0x4
+ *(.bss)
+ .bss           0x4900166c        0x0 /opt/uboot_mlogic/build/firmware/arm/aml_meson/m1/rom_spl.o
+ .bss           0x4900166c        0x0 /opt/uboot_mlogic/build/firmware/arm/aml_meson/m1/magic.o
+ .bss           0x4900166c        0x4 /opt/uboot_mlogic/build/firmware/arm/aml_meson/m1/spl.o
+                0x49001670                . = ALIGN (0x4)
+                0x49001670                _bssend = .
+                0x00000001                ASSERT ((_end <= 0x49001800), ROM BOOT bootstrap too big)
+                0x00000001                ASSERT ((_bssend <= 0x49001c80), ROM BOOT bss  too big)
+LOAD /opt/uboot_mlogic/build/firmware/arm/aml_meson/m1/rom_spl.o
+LOAD /opt/uboot_mlogic/build/firmware/arm/aml_meson/m1/magic.o
+LOAD /opt/uboot_mlogic/build/firmware/arm/aml_meson/m1/spl.o
+OUTPUT(/opt/uboot_mlogic/build/firmware.out elf32-littlearm)
+
+.ARM.attributes
+                0x00000000       0x31
+ .ARM.attributes
+                0x00000000       0x25 /opt/uboot_mlogic/build/firmware/arm/aml_meson/m1/rom_spl.o
+ .ARM.attributes
+                0x00000025       0x25 /opt/uboot_mlogic/build/firmware/arm/aml_meson/m1/magic.o
+ .ARM.attributes
+                0x0000004a       0x35 /opt/uboot_mlogic/build/firmware/arm/aml_meson/m1/spl.o
+
+.comment        0x00000000       0x2b
+ .comment       0x00000000       0x2b /opt/uboot_mlogic/build/firmware/arm/aml_meson/m1/spl.o
+
+.debug_line     0x00000000      0x8f7
+ .debug_line    0x00000000       0xb9 /opt/uboot_mlogic/build/firmware/arm/aml_meson/m1/rom_spl.o
+ .debug_line    0x000000b9      0x83e /opt/uboot_mlogic/build/firmware/arm/aml_meson/m1/spl.o
+
+.debug_info     0x00000000     0x1af1
+ .debug_info    0x00000000       0x98 /opt/uboot_mlogic/build/firmware/arm/aml_meson/m1/rom_spl.o
+ .debug_info    0x00000098     0x1a59 /opt/uboot_mlogic/build/firmware/arm/aml_meson/m1/spl.o
+
+.debug_abbrev   0x00000000      0x4d1
+ .debug_abbrev  0x00000000       0x14 /opt/uboot_mlogic/build/firmware/arm/aml_meson/m1/rom_spl.o
+ .debug_abbrev  0x00000014      0x4bd /opt/uboot_mlogic/build/firmware/arm/aml_meson/m1/spl.o
+
+.debug_aranges  0x00000000       0x40
+ .debug_aranges
+                0x00000000       0x20 /opt/uboot_mlogic/build/firmware/arm/aml_meson/m1/rom_spl.o
+ .debug_aranges
+                0x00000020       0x20 /opt/uboot_mlogic/build/firmware/arm/aml_meson/m1/spl.o
+
+.debug_loc      0x00000000      0xcdd
+ .debug_loc     0x00000000      0xcdd /opt/uboot_mlogic/build/firmware/arm/aml_meson/m1/spl.o
+
+.debug_pubnames
+                0x00000000       0xbb
+ .debug_pubnames
+                0x00000000       0xbb /opt/uboot_mlogic/build/firmware/arm/aml_meson/m1/spl.o
+
+.debug_ranges   0x00000000      0x230
+ .debug_ranges  0x00000000      0x230 /opt/uboot_mlogic/build/firmware/arm/aml_meson/m1/spl.o
+
+.debug_str      0x00000000      0x8cc
+ .debug_str     0x00000000      0x8cc /opt/uboot_mlogic/build/firmware/arm/aml_meson/m1/spl.o
+                                0x978 (size before relaxing)
+
+.debug_frame    0x00000000      0x334
+ .debug_frame   0x00000000      0x334 /opt/uboot_mlogic/build/firmware/arm/aml_meson/m1/spl.o
+
+Cross Reference Table
+
+Symbol                                            File
+__end_magic                                       /opt/uboot_mlogic/build/firmware/arm/aml_meson/m1/magic.o
+__magic_word                                      /opt/uboot_mlogic/build/firmware/arm/aml_meson/m1/magic.o
+                                                  /opt/uboot_mlogic/build/firmware/arm/aml_meson/m1/rom_spl.o
+_bssend                                           /opt/uboot_mlogic/build/firmware/arm/aml_meson/m1/rom_spl.o
+_bssstart                                         /opt/uboot_mlogic/build/firmware/arm/aml_meson/m1/rom_spl.o
+_end_rom_spl                                      /opt/uboot_mlogic/build/firmware/arm/aml_meson/m1/rom_spl.o
+_end_wait                                         /opt/uboot_mlogic/build/firmware/arm/aml_meson/m1/rom_spl.o
+_start                                            /opt/uboot_mlogic/build/firmware/arm/aml_meson/m1/rom_spl.o
+backlight_off                                     /opt/uboot_mlogic/build/firmware/arm/aml_meson/m1/spl.o
+clk_util_msr                                      /opt/uboot_mlogic/build/firmware/arm/aml_meson/m1/spl.o
+crc32                                             /opt/uboot_mlogic/build/firmware/arm/aml_meson/m1/spl.o
+crc32_no_comp                                     /opt/uboot_mlogic/build/firmware/arm/aml_meson/m1/spl.o
+crc32_wd                                          /opt/uboot_mlogic/build/firmware/arm/aml_meson/m1/spl.o
+do_exception                                      /opt/uboot_mlogic/build/firmware/arm/aml_meson/m1/spl.o
+                                                  /opt/uboot_mlogic/build/firmware/arm/aml_meson/m1/rom_spl.o
+ipl_memcpy                                        /opt/uboot_mlogic/build/firmware/arm/aml_meson/m1/rom_spl.o
+lowlevel_init                                     /opt/uboot_mlogic/build/firmware/arm/aml_meson/m1/spl.o
+                                                  /opt/uboot_mlogic/build/firmware/arm/aml_meson/m1/rom_spl.o
+magic_info                                        /opt/uboot_mlogic/build/firmware/arm/aml_meson/m1/rom_spl.o
+                                                  /opt/uboot_mlogic/build/firmware/arm/aml_meson/m1/spl.o
+mem_debug                                         /opt/uboot_mlogic/build/firmware/arm/aml_meson/m1/spl.o
+memcpy                                            /opt/uboot_mlogic/build/firmware/arm/aml_meson/m1/spl.o
+power_hold                                        /opt/uboot_mlogic/build/firmware/arm/aml_meson/m1/spl.o
+relocate_init                                     /opt/uboot_mlogic/build/firmware/arm/aml_meson/m1/spl.o
+                                                  /opt/uboot_mlogic/build/firmware/arm/aml_meson/m1/rom_spl.o
+romboot_info                                      /opt/uboot_mlogic/build/firmware/arm/aml_meson/m1/rom_spl.o
+                                                  /opt/uboot_mlogic/build/firmware/arm/aml_meson/m1/spl.o
+wait                                              /opt/uboot_mlogic/build/firmware/arm/aml_meson/m1/rom_spl.o
